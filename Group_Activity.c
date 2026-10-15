@@ -15,8 +15,6 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
 
     time_t now;
     struct tm *dateTime;
-
-    /* SELECT ACCOUNT */
     printf("\n================================\n");
     printf("       SELECT ACCOUNT\n");
     printf("================================\n");
@@ -26,7 +24,12 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     printf("4. Exit\n");
     printf("--------------------------------\n");
     printf("Choose account: ");
-    scanf("%d", &account);
+
+    if (scanf("%d", &account) != 1)
+    {
+        printf("Invalid input! Numbers only.\n");
+        return 0;
+    }
 
     if (account == 4)
     {
@@ -41,8 +44,6 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     }
 
     account--;
-
-    /* ATM MENU */
     printf("\n================================\n");
     printf("          ATM MENU\n");
     printf("================================\n");
@@ -52,13 +53,21 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     printf("3. Exit\n");
     printf("--------------------------------\n");
     printf("Enter choice: ");
-    scanf("%d", &choice);
 
-    /* WITHDRAW */
+    if (scanf("%d", &choice) != 1)
+    {
+        printf("Invalid input! Numbers only.\n");
+        return 0;
+    }
     if (choice == 1)
     {
         printf("\nEnter withdrawal amount: PHP ");
-        scanf("%f", &amount);
+
+        if (scanf("%f", &amount) != 1)
+        {
+            printf("Invalid input! Numbers only.\n");
+            return 0;
+        }
 
         if (amount <= 0)
         {
@@ -81,7 +90,6 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
         now = time(NULL);
         dateTime = localtime(&now);
 
-        /* ATM RECEIPT */
         printf("\n");
         printf("----------------------------------------\n");
         printf("%30s\n", "ATM TRANSACTION");
@@ -139,7 +147,6 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
 
         printf("\nThank you for using the ATM!\n");
     }
-
     else if (choice == 2)
     {
         printf("\n================================\n");
@@ -152,16 +159,13 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
 
         printf("\nThank you for using the ATM!\n");
     }
-
     else if (choice == 3)
     {
         printf("\nThank you for using the ATM!\n");
     }
-
     else
     {
         printf("Invalid choice.\n");
     }
-
     return 0;
 }
