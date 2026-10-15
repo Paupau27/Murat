@@ -9,14 +9,13 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     float amount;
     float fee = 1.25;
     float total;
-
     int account, choice;
     int sequence = 8564;
 
     time_t now;
     struct tm *dateTime;
     printf("\n================================\n");
-    printf("       SELECT ACCOUNT\n");
+    printf("         SELECT ACCOUNT\n");
     printf("================================\n");
     printf("1. %s\n", names[0]);
     printf("2. %s\n", names[1]);
@@ -45,7 +44,7 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
 
     account--;
     printf("\n================================\n");
-    printf("          ATM MENU\n");
+    printf("%27s\n", "ATM MENU");
     printf("================================\n");
     printf("Account: %s\n", names[account]);
     printf("1. Withdraw\n");
@@ -92,7 +91,7 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
 
         printf("\n");
         printf("----------------------------------------\n");
-        printf("%30s\n", "ATM TRANSACTION");
+        printf("%27s\n", "ATM TRANSACTION");
         printf("----------------------------------------\n");
 
         printf("%-20s %18s\n",
@@ -150,7 +149,7 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     else if (choice == 2)
     {
         printf("\n================================\n");
-        printf("          ACCOUNT INFO\n");
+        printf("%27s\n", "ACCOUNT INFO");
         printf("================================\n");
         printf("Customer: %s\n", names[account]);
         printf("Card Number: %s\n", cards[account]);
