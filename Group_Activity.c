@@ -1,9 +1,17 @@
 #include <stdio.h>
+#include <string.h>
 #include <time.h>
+
+void printCentered(const char *text)
+{
+    int padding = (40 - (int)strlen(text)) / 2;
+
+    printf("%*s%s\n", padding, "", text);
+}
 
 int main()
 {
-char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
+    char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     char cards[3][20] = {"XXXXXXXXXXXX1001", "XXXXXXXXXXXX1002", "XXXXXXXXXXXX1003"};
     float balances[3] = {5000.00, 3000.00, 7000.00};
     float amount;
@@ -11,17 +19,20 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     float total;
     int account, choice;
     int sequence = 8564;
+    char date[20];
 
     time_t now;
     struct tm *dateTime;
-    printf("\n================================\n");
-    printf("         SELECT ACCOUNT\n");
-    printf("================================\n");
-    printf("1. %s\n", names[0]);
-    printf("2. %s\n", names[1]);
-    printf("3. %s\n", names[2]);
-    printf("4. Exit\n");
-    printf("--------------------------------\n");
+
+    // Account selection
+    printf("\n========================================\n");
+    printCentered("SELECT ACCOUNT");
+    printf("========================================\n");
+    printf("  1. %s\n", names[0]);
+    printf("  2. %s\n", names[1]);
+    printf("  3. %s\n", names[2]);
+    printf("  4. Exit\n");
+    printf("----------------------------------------\n");
     printf("Choose account: ");
 
     if (scanf("%d", &account) != 1)
@@ -42,15 +53,16 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
         return 0;
     }
 
+    // Atm menu
     account--;
-    printf("\n================================\n");
-    printf("%27s\n", "ATM MENU");
-    printf("================================\n");
-    printf("Account: %s\n", names[account]);
-    printf("1. Withdraw\n");
-    printf("2. Check Balance\n");
-    printf("3. Exit\n");
-    printf("--------------------------------\n");
+    printf("\n========================================\n");
+    printCentered("ATM MENU");
+    printf("========================================\n");
+    printf("%-14s %s\n", "Account:", names[account]);
+    printf("  1. Withdraw\n");
+    printf("  2. Check Balance\n");
+    printf("  3. Exit\n");
+    printf("----------------------------------------\n");
     printf("Enter choice: ");
 
     if (scanf("%d", &choice) != 1)
@@ -79,8 +91,8 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
         if (total > balances[account])
         {
             printf("Insufficient balance.\n");
-            printf("Current balance: PHP %.2f\n",
-                   balances[account]);
+            printf("%-21s PHP %14.2f\n",
+                   "CURRENT BALANCE", balances[account]);
             return 0;
         }
 
@@ -89,72 +101,80 @@ char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
         now = time(NULL);
         dateTime = localtime(&now);
 
+        //Atm transaction receipt
         printf("\n");
         printf("----------------------------------------\n");
-        printf("%27s\n", "ATM TRANSACTION");
+        printCentered("ATM TRANSACTION");
         printf("----------------------------------------\n");
 
-        printf("%-20s %18s\n",
+        printf("%-21s %18s\n",
                "TERMINAL #", "65425899");
 
-        printf("%-20s %18d\n",
+        printf("%-21s %18d\n",
                "SEQUENCE #", sequence++);
 
         if (dateTime != NULL)
         {
-            printf("%-20s %02d:%02d %02d/%02d/%04d\n",
-                   "DATE",
-                   dateTime->tm_hour,
-                   dateTime->tm_min,
-                   dateTime->tm_mday,
-                   dateTime->tm_mon + 1,
-                   dateTime->tm_year + 1900);
+            strftime(date, sizeof(date), "%H:%M %d/%m/%Y", dateTime);
+            printf("%-21s %18s\n", "DATE", date);
         }
         else
         {
-            printf("%-20s %s\n", "DATE", "Unavailable");
+            printf("%-21s %18s\n", "DATE", "Unavailable");
         }
 
         printf("\n");
 
-        printf("%-20s %18s\n",
+        printf("%-21s %18s\n",
                "CARD NUMBER", cards[account]);
 
         printf("\n");
 
-        printf("%-20s %18s\n",
+        printf("%-21s %18s\n",
                "CUSTOMER NAME", names[account]);
 
         printf("\n");
 
-        printf("%-24s PHP %10.2f\n",
+        printf("%-21s PHP %14.2f\n",
                "REQUESTED AMOUNT", amount);
 
-        printf("%-24s PHP %10.2f\n",
+        printf("%-21s PHP %14.2f\n",
                "TERMINAL FEE", fee);
 
         printf("\n");
 
-        printf("%-24s PHP %10.2f\n",
+        printf("%-21s PHP %14.2f\n",
                "TOTAL AMOUNT", total);
 
         printf("----------------------------------------\n");
 
         printf("\nWithdrawal successful!\n");
-        printf("Remaining balance: PHP %.2f\n",
-               balances[account]);
+        printf("%-21s PHP %14.2f\n",
+               "REMAINING BALANCE", balances[account]);
 
         printf("\nThank you for using the ATM!\n");
     }
     else if (choice == 2)
     {
-        printf("\n================================\n");
-        printf("%27s\n", "ACCOUNT INFO");
-        printf("================================\n");
-        printf("Customer: %s\n", names[account]);
-        printf("Card Number: %s\n", cards[account]);
-        printf("Balance: PHP %.2f\n", balances[account]);
-        printf("================================\n");
+        now = time(NULL);
+        dateTime = localtime(&now);
+
+        printf("\n========================================\n");
+        printCentered("ACCOUNT INFO");
+        printf("========================================\n");
+        printf("%-21s %18s\n", "Customer:", names[account]);
+        printf("%-21s %18s\n", "Card Number:", cards[account]);
+        if (dateTime != NULL)
+        {
+            strftime(date, sizeof(date), "%H:%M %d/%m/%Y", dateTime);
+            printf("%-21s %18s\n", "DATE:", date);
+        }
+        else
+        {
+            printf("%-21s %18s\n", "DATE:", "Unavailable");
+        }
+        printf("%-21s PHP %14.2f\n", "BALANCE", balances[account]);
+        printf("========================================\n");
 
         printf("\nThank you for using the ATM!\n");
     }
