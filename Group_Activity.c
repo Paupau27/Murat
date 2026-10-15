@@ -3,7 +3,7 @@
 
 int main()
 {
-    char names[3][50] = {"Gywenth Alday", "MARIA SANTOS", "PEDRO REYES"};
+    char names[3][50] = {"Gywenth Alday", "Sundy Mundy", "Hermione Labaclado"};
     char cards[3][20] = {"XXXXXXXXXXXX1001", "XXXXXXXXXXXX1002", "XXXXXXXXXXXX1003"};
     float balances[3] = {5000.00, 3000.00, 7000.00};
     float amount;
